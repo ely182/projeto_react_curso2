@@ -1,42 +1,31 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+import P from 'prop-types';
 import './App.css';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-const eventFn = () => {
-  console.log('h1 clicado');
+const Button = React.memo(function Button({ incrementButton }) {
+  console.log('filho redereizou');
+  return <button onClick={() => incrementButton(100)}>Aperte aqui</button>;
+});
+
+Button.proptypes = {
+  incrementButton: P.func,
 };
 
 function App() {
   const [counter, setCounter] = useState(0);
-  const [counter2, setCounter2] = useState(0);
 
-  // // componentDidUpdate - execulta toda vez que o compomente atualiza
-  // useEffect(() => {
-  //   console.log('componentDidUpdate');
-  // });
-
-  // // componentDidMount - execulta 1x
-  useEffect(() => {
-    document.querySelector('h1').addEventListener('click', eventFn);
-
-    //componentWillUnmount - limpeza
-    return () => {
-      document.querySelectot('h1')?.addEventListener('click', eventFn);
-    };
+  const incrementCounter = useCallback((num) => {
+    setCounter((c) => c + num);
   }, []);
 
-  // com dependencia- execulta toda vez que a dependencia mudar
-  useEffect(() => {
-    console.log('c1', counter, 'c2', counter2);
-  }, [counter, counter2]);
-
+  console.log('pai redenrizou');
   return (
     <div className="App">
-      <h1>
-        c1: {counter} c2:{counter2}
-        {''}
-      </h1>
-      <button onClick={() => setCounter(counter + 1)}>Aperte aqui</button>
-      <button onClick={() => setCounter2(counter2 + 1)}>Aperte aqui2</button>
+      <p>teste</p>
+      <h1>c1: {counter}</h1>
+      <Button incrementButton={incrementCounter} />
     </div>
   );
 }
