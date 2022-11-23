@@ -1,31 +1,50 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/prop-types */
 import P from 'prop-types';
+import { useEffect, useState } from 'react';
 import './App.css';
-import React, { useState, useEffect, useCallback } from 'react';
 
-const Button = React.memo(function Button({ incrementButton }) {
-  console.log('filho redereizou');
-  return <button onClick={() => incrementButton(100)}>Aperte aqui</button>;
-});
+const Post = ({ post }) => {
+  return (
+    <div key={post.id} className="post">
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
+    </div>
+  );
+};
 
-Button.proptypes = {
-  incrementButton: P.func,
+Post.propTypes = {
+  post: P.shape({
+    id: P.number,
+    title: P.string,
+    body: P.string,
+  }),
 };
 
 function App() {
-  const [counter, setCounter] = useState(0);
+  const [posts, setPosts] = useState([]);
+  console.log('pai rodoou');
 
-  const incrementCounter = useCallback((num) => {
-    setCounter((c) => c + num);
+  // component did mount
+
+  useEffect(() => {
+    setTimeout(function () {
+      fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((r) => r.jason())
+        .then((r) => setPosts(r));
+    }, 5000);
   }, []);
 
-  console.log('pai redenrizou');
   return (
     <div className="App">
-      <p>teste</p>
-      <h1>c1: {counter}</h1>
-      <Button incrementButton={incrementCounter} />
+      {posts.length > 0 &&
+        posts.map((post) => {
+          return (
+            <div key={post.id} className="post">
+              <h1>{post.title}</h1>
+              <p>{post.body}</p>
+            </div>
+          );
+        })}
+      {posts.length <= 0 && <p> nao tem posts</p>}
     </div>
   );
 }
