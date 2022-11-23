@@ -9,11 +9,11 @@ function App() {
   const reverseClass = reverse ? 'reverse' : '';
 
   const handleClick = () => {
-    seteReverse(!reverse);
+    seteReverse((reverse) => !reverse);
   };
 
   const handleInclement = () => {
-    setCounter(counter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
   };
 
   return (
