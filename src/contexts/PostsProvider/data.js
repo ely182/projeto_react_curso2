@@ -1,3 +1,4 @@
-export const data = () => {
-    
-};
+export const data = {
+    posts: [],
+    loading: false,
+  };

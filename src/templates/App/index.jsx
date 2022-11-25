@@ -1,16 +1,14 @@
-import { Posts } from '../../components/Posts';
-import { PostsProvider } from '../../contexts/PostsProvider';
 import './styles.css';
 
+import { PostsProvider } from '../../contexts/PostsProvider';
+import { Posts } from '../../components/Posts';
 
 function App() {
   return (
     <PostsProvider>
-
-    <div >
-      <Posts/>
-     
-    </div>
+      <div>
+        <Posts />
+      </div>
     </PostsProvider>
   );
 }
