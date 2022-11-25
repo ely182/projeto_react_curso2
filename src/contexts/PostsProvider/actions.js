@@ -1,11 +1,9 @@
 import * as types from './types';
 
-export const loadPosts = async (dispatch) => {
-  dispatch({ type: types.POSTS_LOADING });
+export const incrementCounter = (dispatch) => {
+  dispatch({ type: types.INCREMENT_COUNTER });
+};
 
-  const postsRaw = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = await postsRaw.json();
-  console.log('Carreguei os posts');
-
-  return () => dispatch({ type: types.POSTS_SUCCESS, payload: posts });
+export const decrementCounter = (dispatch) => {
+  dispatch({ type: types.DECREMENT_COUNTER });
 };

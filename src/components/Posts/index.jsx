@@ -1,5 +1,9 @@
 import { useContext, useEffect, useRef } from 'react';
-import { CounterContext } from '../../contexts/ExampleProvider/context';
+import {
+  decrementCounter,
+  incrementCounter,
+} from '../../contexts/CounterProvider/action';
+import { CounterContext } from '../../contexts/CounterProvider/context';
 import { loadPosts } from '../../contexts/PostsProvider/actions';
 import { PostsContext } from '../../contexts/PostsProvider/context';
 
@@ -9,32 +13,34 @@ export const Posts = () => {
   const postsContext = useContext(PostsContext);
   const { postsState, postsDispatch } = postsContext;
 
-const counterContext = useContext(CounterContext);
-const { counterDispatch, counterState } = counterContext;
+  const counterContext = useContext(CounterContext);
+  const { counterState, counterDispatch } = counterContext;
 
   useEffect(() => {
     loadPosts(postsDispatch).then((dispatch) => {
       if (isMounted.current) {
-        dispatch();
+     dispatch();
       }
     });
-
     return () => {
       isMounted.current = false;
     };
-  }, [postsDispatch]);
+  },[postsDispatch]);
 
   return (
     <div>
-      <button onClick={()=> incrementCounter (counterDispatch)} >counter {counterState.counter}</button>
-      <button conClick={()=> decrementCounter(counterDispatch)}>counter{counterState.counter}-</button>
+      <button onClick={() => incrementCounter(counterDispatch)}>
+        Counter {counterState.counter}+
+      </button>
+      <button onClick={() => decrementCounter(counterDispatch)}>
+        Counter {counterState.counter}-
+      </button>
       <h1>POSTS</h1>
       {postsState.loading && (
         <p>
           <strong>Carregando posts...</strong>
         </p>
       )}
-
       {postsState.posts.map((p) => (
         <p key={p.id}>{p.title}</p>
       ))}

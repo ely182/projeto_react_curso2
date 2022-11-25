@@ -1,19 +1,19 @@
 import P from 'prop-types';
 import { useReducer } from 'react';
-import { PostsContext } from './context';
+import { CounterContext } from './context';
 import { data } from './data';
 import { reducer } from './reducer';
 
-export const PostsProvider = ({ children }) => {
-  const [postsState, postsDispatch] = useReducer(reducer, data);
+export const CounterProvider = ({ children }) => {
+  const [counterState, counterDispatch] = useReducer(reducer, data);
 
   return (
-    <PostsContext.Provider value={{ postsState, postsDispatch }}>
+    <CounterContext.Provider value={{ counterState, counterDispatch }}>
       {children}
-    </PostsContext.Provider>
+    </CounterContext.Provider>
   );
 };
 
-PostsProvider.propTypes = {
+CounterProvider.propTypes = {
   children: P.node.isRequired,
 };

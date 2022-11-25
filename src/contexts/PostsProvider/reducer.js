@@ -2,16 +2,13 @@ import * as types from './types';
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case types.POSTS_SUCCESS: {
-      console.log(action.type);
-      return { ...state, posts: action.payload, loading: false };
+    case types.INCREMENT_COUNTER: {
+      return { ...state, counter: state.counter + 1 };
     }
-    case types.POSTS_LOADING: {
-      console.log(action.type);
-      return { ...state, loading: true };
+    case types.DECREMENT_COUNTER: {
+      return { ...state, counter: state.counter - 1 };
     }
   }
 
-  console.log('Não encontrei a action', action.type);
   return { ...state };
 };
